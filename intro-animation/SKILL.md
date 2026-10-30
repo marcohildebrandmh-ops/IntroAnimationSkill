@@ -59,6 +59,37 @@ Propose **2-3 short concepts** before building, each in 3-5 lines:
 Let the user pick or mix, then write a short **storyboard** (table: time, what moves, word on screen, sound) and
 confirm it. Changing a storyboard is cheap - changing finished keyframes is not.
 
+## Proven order of work (reference run)
+
+This is the order in which a finished intro usually comes together. Follow it, show the result after every step
+(screenshots or a short screen recording), and let the user react before going on.
+
+1. **Rebuild the logo exactly as SVG.** From a PNG/JPG: trace or rebuild the shapes, overlay the original at 50 %
+   opacity and correct until they match. Derive the animated parts (figure, letters, pieces) from this SVG.
+2. **First motion pass.** Scenes with one big word each above the animation, then the claim, then the fold into the
+   logo. Logo centered, wordmark fully visible (gradient text needs a little padding so the last letter is not clipped).
+3. **Iterate on feedback.** Typical notes: a move looks wobbly, a word is too dark or too small, two scenes are too
+   similar, a word should be replaced. Change only what was asked; everything the user approved stays as it is.
+4. **Ask for the music.** "Do you have a track? Send the file. Which part should play?" If the user has none, offer to
+   write a prompt for a music generator or suggest stock. Never assume a track.
+5. **Build the tuning panel right away** (Phase 5), so the user can set the music start, volumes and voice timing by
+   ear on their own device. Ask them to send the JSON values; put them into the config and hide the panel. If they
+   later bring a new track, show the panel again.
+6. **Effects and voice.** Generate one take per sound (Phase 4), place each on its frame of contact.
+7. **Ask about the beat.** "Should the logo or the letters move on the beat at the end?" Measure the beat grid of
+   exactly that section (Phase 6), start with a simple bounce, then offer more layers one at a time
+   (wave, la-ola, logo pulse or gestures, words changing on the beat).
+8. **Ask before adding content.** If words should appear (features, values, products), propose a list and let the
+   user choose and order them - do not invent final copy on your own.
+9. **Timing of the rest of the page.** Decide with the user what appears when: e.g. the text below the logo only
+   after the music ends, a final small detail (sparkle, drop, wink) on the last accent.
+10. **Optional extension.** The animation can continue while scrolling (the logo turns into the character again and
+    interacts with the page), or the page can scroll itself so the last move lands on the final accent of the music.
+11. **Polish pass.** Shadows, landing dust, small props, smoother transitions - list the ideas, let the user pick.
+12. **Final check** (Phase 7) and hand-over with the values the user can still tune.
+
+Respect the user's creative decisions: do not shorten, hide or tone down the intro unless they ask for it.
+
 ## Phase 3 - Build the motion
 
 ### Prepare the logo
