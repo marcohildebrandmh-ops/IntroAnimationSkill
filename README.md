@@ -1,0 +1,2 @@
+# IntroAnimationSkill
+Claude Animation skill
