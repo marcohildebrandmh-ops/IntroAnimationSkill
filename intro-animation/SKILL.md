@@ -1,6 +1,6 @@
 ---
 name: intro-animation
-description: Design and build an animated intro for a website, app or video from any logo, symbol or wordmark - the logo comes alive, tells a short story and settles back into the exact logo. Starts with a creative interview (idea, story, style, mood, sound), proposes concepts, then builds it in HTML/SVG/JS with keyframes, optional sound (music, effects, voice - e.g. ElevenLabs, Suno, Udio, stock), a tuning panel to fit the music by ear, and motion that lands exactly on the beat of the music. Use for logo intros, splash screens, hero animations, animated mascots, kinetic typography, game-style voice intros, or any animation synced to music.
+description: Design and build an animated intro for a website, app or video from any logo, symbol or wordmark - the logo comes alive, tells a short story and settles back into the exact logo. Starts with a creative interview (idea, story, style, mood, sound), proposes concepts, then builds it in HTML/SVG/JS with keyframes, optional sound (music, effects, voice - e.g. ElevenLabs, Suno, Udio, stock), a tuning panel to fit the music by ear, and motion that lands exactly on the beat of the music. Use for logo intros, splash screens, hero animations, kinetic typography, game-style voice intros, or any animation synced to music.
 ---
 
 # Intro animation
@@ -24,14 +24,18 @@ to start from a blank page. Skip questions the user already answered.
 3. Personality in three words (e.g. playful / premium / bold / calm / technical / handmade)?
 
 **About the idea**
-4. Do you already have an idea or story? If not, which direction appeals (pick or mix):
-   - **Mascot** - the logo becomes a character and does things (sports, cooking, building, dancing…)
+4. What should happen with the logo? Do you already have an idea or story? If not, here are directions
+   to pick, mix or ignore (they are only examples - the user's own idea always wins):
    - **Assembly** - parts fly in, snap together, or particles/dots form the logo
    - **Drawing** - the logo is drawn line by line like a pen or neon sign
-   - **Morph** - one shape transforms into the next (products, icons, tools) and finally into the logo
+   - **Morph** - one shape transforms into the next and finally into the logo
    - **Kinetic type** - words and letters move, stack, bounce, form the claim, then the wordmark
-   - **Journey** - a camera move through a small scene that ends on the logo
    - **Reveal** - mask, light sweep, liquid, paper fold, glitch, shutter
+   - **Journey** - a camera move through a small scene that ends on the logo
+   - **Character** - the logo gets a face or limbs and acts something out
+
+   Never assume a form, a theme or a story. Whether the logo moves as a shape, as letters or as a character,
+   and what it does, is the user's decision.
 5. Scenes or messages to show (e.g. 3-6 words: products, values, activities)? A claim at the end?
 6. Length (short splash 3-5 s, story 10-20 s) and pace (calm, punchy, playful)?
 
@@ -65,9 +69,9 @@ This is the order in which a finished intro usually comes together. Follow it, s
 (screenshots or a short screen recording), and let the user react before going on.
 
 1. **Rebuild the logo exactly as SVG.** From a PNG/JPG: trace or rebuild the shapes, overlay the original at 50 %
-   opacity and correct until they match. Derive the animated parts (figure, letters, pieces) from this SVG.
-2. **First motion pass.** Scenes with one big word each above the animation, then the claim, then the fold into the
-   logo. Logo centered, wordmark fully visible (gradient text needs a little padding so the last letter is not clipped).
+   opacity and correct until they match. Derive the parts that will move (shapes, lines, letters, pieces) from this SVG.
+2. **First motion pass** of the chosen idea: the scenes (with a word each, if wanted), then the claim, then the
+   settle into the logo. Logo centered, wordmark fully visible (gradient text needs a little padding so the last letter is not clipped).
 3. **Iterate on feedback.** Typical notes: a move looks wobbly, a word is too dark or too small, two scenes are too
    similar, a word should be replaced. Change only what was asked; everything the user approved stays as it is.
 4. **Ask for the music.** "Do you have a track? Send the file. Which part should play?" If the user has none, offer to
@@ -83,9 +87,9 @@ This is the order in which a finished intro usually comes together. Follow it, s
    user choose and order them - do not invent final copy on your own.
 9. **Timing of the rest of the page.** Decide with the user what appears when: e.g. the text below the logo only
    after the music ends, a final small detail (sparkle, drop, wink) on the last accent.
-10. **Optional extension.** The animation can continue while scrolling (the logo turns into the character again and
-    interacts with the page), or the page can scroll itself so the last move lands on the final accent of the music.
-11. **Polish pass.** Shadows, landing dust, small props, smoother transitions - list the ideas, let the user pick.
+10. **Optional extension.** The animation can continue while scrolling (the logo reacts to the page, e.g. pushes,
+    pulls or reveals the next content), or the page can scroll itself so the last move lands on the final accent of the music.
+11. **Polish pass.** Shadows, small details, easing, smoother transitions - list the ideas, let the user pick.
 12. **Final check** (Phase 7) and hand-over with the values the user can still tune.
 
 Respect the user's creative decisions: do not shorten, hide or tone down the intro unless they ask for it.
@@ -104,7 +108,6 @@ Respect the user's creative decisions: do not shorten, hide or tone down the int
 ### Choose the technique per idea
 | idea | technique |
 |---|---|
-| mascot / figure | rig from SVG parts: limbs as stroked paths `M shoulder L elbow L hand`, legs with two-bone IK so feet stay planted |
 | assembly | each part has a start transform (offset, rotation, scale) and flies to identity; stagger by part |
 | particles forming the logo | sample points inside the logo shape (draw it to a canvas, read pixels), move particles from random positions to those points |
 | drawing | `pathLength="1"`, `stroke-dasharray="1 1"`, animate `stroke-dashoffset` 1 → 0; fill fades in after the line |
@@ -112,6 +115,7 @@ Respect the user's creative decisions: do not shorten, hide or tone down the int
 | kinetic type | one `<span>` per letter or word; transforms per letter with stagger; for gradient text give every letter its slice of one gradient (`background-size` = word box, `background-position` = minus the letter offset) |
 | reveal | `clip-path` / SVG mask animated over time; light sweep = a moving gradient inside the logo clip |
 | camera move | wrap the scene in a group and animate its `transform` (pan, zoom) |
+| character (only if chosen) | rig from SVG parts: limbs as stroked paths with joints, two-bone IK (below) so end points stay in place |
 
 ### Engine: everything is a function of time
 Every frame is `paint(t)`. That gives seeking (jump to a scene), exact sync with audio, stills for review and no drift.
@@ -129,7 +133,7 @@ function sample(keys, t) {
 }
 const step = (keys, t) => keys.reduce((v, k) => (t >= k[0] ? k[1] : v), keys[0][1]);   // on/off states
 
-// two-bone IK for legs or arms: joint position from root and end point
+// only for characters - two-bone IK: joint position from root and end point
 function joint(rx, ry, ex, ey, side, L) {
   const vx = ex - rx, vy = ey - ry, d = Math.hypot(vx, vy) || 1;
   let jx = rx + vx / 2, jy = ry + vy / 2;
@@ -144,20 +148,20 @@ function loop(now) {
   if (t < END) requestAnimationFrame(loop); else finish();
 }
 ```
-- One channel per moving property (body offset, feet in world coordinates, arms, squash, props, reveal progress…).
-- Repeating motion (running, waving, bouncing) is generated with a `for` loop.
+- One channel per moving property (position, rotation, scale, opacity, path progress, color, mask…).
+- Repeating motion (pulsing, rotating, bouncing) is generated with a `for` loop.
 - Springs for organic overshoot: `x += v; v += (target - x) * k - v * damping` per frame - but sample them in
   advance into keyframes if the intro must be seekable.
 - Animate only SVG attributes, `transform`, `opacity` (and `clip-path`); one `requestAnimationFrame` loop.
 
 ### Make it feel alive (the 12 principles, applied)
-- **Anticipation** before every big move (crouch before a jump, wind-up before a throw).
-- **Follow-through and overlap**: arms, hair, tails and props arrive later than the body.
-- **Squash and stretch**: ~0.1 s squash on landing, stretch in fast moves; keep volume roughly constant.
-- **Arcs**: thrown things and swinging limbs move on curves, not straight lines.
+- **Anticipation**: a small move in the opposite direction before a big one (pull back, then shoot forward).
+- **Follow-through and overlap**: secondary parts arrive slightly after the main shape and settle with a small overshoot.
+- **Squash and stretch**: short squash on impact, stretch in fast moves; keep the area roughly constant.
+- **Arcs**: things in motion travel on curves, not straight lines.
 - **Timing**: fast in, slow out for impacts; hold key poses ~0.2 s so the eye can read them.
 - **Staging**: one idea at a time; the word on screen names it.
-- Grounding: a shadow that shrinks and fades when the object is in the air; feet do not slide.
+- Grounding (if something lands or floats): a soft shadow that shrinks and fades with height.
 
 ### Words, claim, wordmark
 - One big word per scene (light color, large, above or behind the animation); shrink long words to the screen width.
@@ -188,7 +192,7 @@ Browsers block autoplay with sound - start audio only from a "Sound on" button. 
 
 ### Sources
 - **Effects** (e.g. ElevenLabs Sound Effects): prompt = *what + material + distance + length + "no music, no voice"*,
-  e.g. "single basketball bounce on an indoor court, close, dry, no music". Typical set: whoosh, impact/landing,
+  e.g. "single soft pop, close, dry, no music". Typical set: whoosh, impact/landing,
   pop, click, sparkle, crowd, one big logo hit.
 - **Voice** (e.g. ElevenLabs Text to Speech): one or two short lines; let the user choose the voice from the library,
   never hard-code voice IDs from memory.
@@ -252,7 +256,7 @@ Building blocks (combine, multiply all by a gain that fades out before the end):
 - **Wave**: `translateY(sin(2π · s / bar − i · 0.9))` - one gentle pass per bar.
 - **La-ola**: on the last beat of each bar, letter `i` rises with a delay of `i · 0.15` beats.
 - **Pulse**: logo scale `1 + 0.04 · hop(u)`, glow or light sweep on the "1".
-- **Character**: arms up on every beat, head nod, a jump on the "1".
+- **Shape gestures**: parts of the logo open, rotate or stretch on every beat; a bigger move on the "1".
 - **Words on the beat**: change a word every 1-2 beats, pulse it on the beat.
 - **Cuts**: scene changes on bar starts feel intentional.
 
@@ -260,7 +264,7 @@ Building blocks (combine, multiply all by a gain that fades out before the end):
 
 - **Stills**: a debug switch (e.g. `?debug` → `window.intro.at(t)` and `window.intro.dance(t)`) renders any frame.
   Take stills with Playwright (or ask the user for screenshots) and check them as a contact sheet: poses readable,
-  nothing passes through the head, feet planted, props in hand, words match, **last frame = logo**.
+  nothing intersects in a wrong way, transitions are smooth, words match, **last frame = logo**.
 - **Function**: no console errors; works without audio files; Skip/Replay/dots work; reduced motion shows the logo;
   fits a 375 px wide phone; no layout shift.
 - **Sound**: effects on contact, voice ends with or before the logo hit, music start and fade feel right,

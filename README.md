@@ -9,9 +9,9 @@ suggests concepts, and then builds the intro for you.
 
 ## What it covers
 - **Creative interview**: logo, brand personality, idea or story, scenes, claim, length, where it runs, sound.
-- **Concepts and storyboard**: 2-3 directions (mascot, assembly, line drawing, morph, kinetic type, camera journey,
-  reveal), then a timed storyboard to confirm before building.
-- **Motion**: keyframes as a function of time, inverse kinematics for figures, line drawing, morphing,
+- **Concepts and storyboard**: 2-3 directions based on your answers (e.g. assembly, line drawing, morph, kinetic type,
+  reveal, camera journey, character; the form is always your choice), then a timed storyboard to confirm before building.
+- **Motion**: keyframes as a function of time, inverse kinematics if the logo becomes a character, line drawing, morphing,
   particles, per-letter text animation, animation principles (anticipation, follow-through, squash, arcs).
 - **Sound**: Web Audio playback in sync with the picture; effects and voice (e.g. ElevenLabs), music
   (ElevenLabs Music, Suno, Udio, stock or your own track), loudness, licences, saving credits.
@@ -35,7 +35,7 @@ Claude picks the skill up automatically when you ask for a logo intro or a beat-
 3. Ask, for example: *"Make an animated intro for my website, here is my logo as SVG."*
 
 ## Example prompts
-- "Animate my logo as a little character that cooks, tastes and serves, then our claim, then the logo."
+- "Let our logo assemble from small pieces, then show our claim, then the logo."
 - "Let the letters of our wordmark dance on the beat of this MP3."
 - "Draw our logo line by line like a neon sign, with a short electric sound."
 - "Write a music prompt for a 20-second intro with the drop on the logo."
